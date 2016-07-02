@@ -1,9 +1,9 @@
 
-import { routerReducer as routing } from 'react-router-redux'
+import { router5Reducer } from 'redux-router5';
 import { combineReducers } from 'redux'
 import todos from './todos'
 
 export default combineReducers({
-  routing,
+  router: router5Reducer,
   todos
 })
