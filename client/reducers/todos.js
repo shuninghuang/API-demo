@@ -1,52 +1,46 @@
 
-import { handleActions } from 'redux-actions'
+import { createReducer } from 'redux-act'
+import Immutable from 'seamless-immutable'
+import * as Actions from '../actions/todos'
 
-const initialState = [{
-  text: 'Use Redux',
-  completed: false,
-  id: 0
-}]
+const initialState = Immutable([
+  {
+    text: 'Use Redux',
+    completed: false,
+    id: 0
+  }
+])
 
-export default handleActions({
-  'add todo' (state, action) {
-    return [{
+export default createReducer({
+  [Actions.addTodo]: (state, text) => Immutable([
+    {
       id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
       completed: false,
-      text: action.payload
-    }, ...state]
-  },
+      text: text
+    },
+    ...state
+  ]),
 
-  'delete todo' (state, action) {
-    return state.filter(todo => todo.id !== action.payload)
-  },
+  [Actions.deleteTodo]: (state, id) => state.filter(todo =>
+    todo.id !== id
+  ),
 
-  'edit todo' (state, action) {
-    return state.map(todo => {
-      return todo.id === action.payload.id
-        ? { ...todo, text: action.payload.text }
-        : todo
-    })
-  },
+  [Actions.editTodo]: (state, { id, text }) => state.map(todo =>
+    todo.id === id
+      ? todo.set('text', text)
+      : todo
+  ),
 
-  'complete todo' (state, action) {
-    return state.map(todo => {
-      return todo.id === action.payload
-        ? { ...todo, completed: !todo.completed }
-        : todo
-    })
-  },
+  [Actions.completeTodo]: (state, id) => state.map(todo =>
+    todo.id === id
+      ? todo.set('completed', !todo.completed)
+      : todo
+  ),
 
-  'complete all' (state, action) {
+  [Actions.completeAll]: (state) => {
     const areAllMarked = state.every(todo => todo.completed)
-    return state.map(todo => {
-      return {
-        ...todo,
-        completed: !areAllMarked
-      }
-    })
+    return state.map(todo => todo.set('completed', !areAllMarked))
   },
 
-  'clear complete' (state, action) {
-    return state.filter(todo => todo.completed === false)
-  }
+  [Actions.clearCompleted]: (state) => state.filter(todo => todo.completed === false)
 }, initialState)
