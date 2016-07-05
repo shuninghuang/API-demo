@@ -1,11 +1,11 @@
 
 import { createStore, applyMiddleware } from 'redux'
-import { router5Middleware } from 'redux-router5';
+import { router5Middleware } from 'redux-router5'
 
 import { logger } from '../middleware'
 import rootReducer from '../reducers'
 
-export default function configure(router, initialState) {
+export default function configure (router, initialState) {
   const create = window.devToolsExtension
     ? window.devToolsExtension()(createStore)
     : createStore

@@ -1,22 +1,22 @@
 
-import React, { Component } from 'react'
+import { Component } from 'react'
 import TodoTextInput from '../TodoTextInput'
 import classnames from 'classnames'
 import style from './style.css'
 
 class TodoItem extends Component {
-  constructor(props, context) {
+  constructor (props, context) {
     super(props, context)
     this.state = {
       editing: false
     }
   }
 
-  handleDoubleClick() {
+  handleDoubleClick () {
     this.setState({ editing: true })
   }
 
-  handleSave(id, text) {
+  handleSave (id, text) {
     if (text.length === 0) {
       this.props.deleteTodo(id)
     } else {
@@ -25,7 +25,7 @@ class TodoItem extends Component {
     this.setState({ editing: false })
   }
 
-  render() {
+  render () {
     const {todo, completeTodo, deleteTodo} = this.props
 
     let element
@@ -39,11 +39,11 @@ class TodoItem extends Component {
       element = (
         <div className={style.view}>
           <input className={style.toggle}
-             type="checkbox"
+             type='checkbox'
              checked={todo.completed}
              onChange={() => completeTodo(todo.id)} />
 
-          <label onDoubleClick={::this.handleDoubleClick}>
+          <label onDoubleClick={this.handleDoubleClick.bind(this)}>
             {todo.text}
           </label>
 

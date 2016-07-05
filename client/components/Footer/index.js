@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../constants/filters'
 import classnames from 'classnames'
 import style from './style.css'
@@ -11,7 +11,7 @@ const FILTER_TITLES = {
 }
 
 class Footer extends Component {
-  renderTodoCount() {
+  renderTodoCount () {
     const { activeCount } = this.props
     const itemWord = activeCount === 1 ? 'item' : 'items'
 
@@ -22,7 +22,7 @@ class Footer extends Component {
     )
   }
 
-  renderFilterLink(filter) {
+  renderFilterLink (filter) {
     const title = FILTER_TITLES[filter]
     const { filter: selectedFilter, onShow } = this.props
 
@@ -35,7 +35,7 @@ class Footer extends Component {
     )
   }
 
-  renderClearButton() {
+  renderClearButton () {
     const { completedCount, onClearCompleted } = this.props
     if (completedCount > 0) {
       return (
@@ -46,7 +46,7 @@ class Footer extends Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <footer className={style.normal}>
         {this.renderTodoCount()}
