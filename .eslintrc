@@ -1,0 +1,16 @@
+{
+  "env": {
+    "node": true
+  , "browser": true
+  },
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "extends": "standard",
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+  	"react/jsx-uses-vars": [2]
+  }
+}
