@@ -1,5 +1,5 @@
 
-import { Component } from 'react'
+import { Component, PropTypes } from 'react'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../constants/filters'
 import classnames from 'classnames'
 import style from './style.css'
@@ -25,7 +25,6 @@ class Footer extends Component {
   renderFilterLink (filter) {
     const title = FILTER_TITLES[filter]
     const { filter: selectedFilter, onShow } = this.props
-
     return (
       <a className={classnames({ [style.selected]: filter === selectedFilter })}
          style={{ cursor: 'pointer' }}
@@ -61,6 +60,14 @@ class Footer extends Component {
       </footer>
     )
   }
+}
+
+Footer.propTypes = {
+  activeCount: PropTypes.number.isRequired,
+  completedCount: PropTypes.number.isRequired,
+  onShow: PropTypes.func.isRequired,
+  onClearCompleted: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired
 }
 
 export default Footer

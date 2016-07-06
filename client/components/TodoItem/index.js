@@ -1,5 +1,5 @@
 
-import { Component } from 'react'
+import { Component, PropTypes } from 'react'
 import TodoTextInput from '../TodoTextInput'
 import classnames from 'classnames'
 import style from './style.css'
@@ -65,6 +65,13 @@ class TodoItem extends Component {
       </li>
     )
   }
+}
+
+TodoItem.propTypes = {
+  todo: PropTypes.object.isRequired,
+  editTodo: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  completeTodo: PropTypes.func.isRequired
 }
 
 export default TodoItem

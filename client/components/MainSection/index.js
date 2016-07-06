@@ -1,5 +1,5 @@
 
-import { Component } from 'react'
+import { Component, PropTypes } from 'react'
 import TodoItem from '../TodoItem'
 import Footer from '../Footer'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../constants/filters'
@@ -76,6 +76,14 @@ class MainSection extends Component {
       </section>
     )
   }
+}
+
+MainSection.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    completed: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired
+  }).isRequired).isRequired
 }
 
 export default MainSection

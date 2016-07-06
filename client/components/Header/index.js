@@ -1,5 +1,5 @@
 
-import { Component } from 'react'
+import { Component, PropTypes } from 'react'
 import TodoTextInput from '../TodoTextInput'
 
 class Header extends Component {
@@ -20,6 +20,10 @@ class Header extends Component {
       </header>
     )
   }
+}
+
+Header.propTypes = {
+  addTodo: PropTypes.func.isRequired
 }
 
 export default Header
