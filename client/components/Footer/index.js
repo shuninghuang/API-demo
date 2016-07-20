@@ -1,5 +1,5 @@
 
-import { Component, PropTypes } from 'react'
+import { PropTypes } from 'react'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../constants/filters'
 import classnames from 'classnames'
 import style from './style.css'
@@ -10,9 +10,9 @@ const FILTER_TITLES = {
   [SHOW_COMPLETED]: 'Completed'
 }
 
-class Footer extends Component {
-  renderTodoCount () {
-    const { activeCount } = this.props
+const Footer = ({activeCount, selectedFilter, onShow, completedCount,
+  onClearCompleted }) => {
+  const renderTodoCount = () => {
     const itemWord = activeCount === 1 ? 'item' : 'items'
 
     return (
@@ -22,9 +22,8 @@ class Footer extends Component {
     )
   }
 
-  renderFilterLink (filter) {
+  const renderFilterLink = (filter) => {
     const title = FILTER_TITLES[filter]
-    const { filter: selectedFilter, onShow } = this.props
     return (
       <a className={classnames({ [style.selected]: filter === selectedFilter })}
          style={{ cursor: 'pointer' }}
@@ -34,32 +33,27 @@ class Footer extends Component {
     )
   }
 
-  renderClearButton () {
-    const { completedCount, onClearCompleted } = this.props
-    if (completedCount > 0) {
-      return (
-        <button className={style.clearCompleted} onClick={onClearCompleted} >
-          Clear completed
-        </button>
-      )
-    }
+  const renderClearButton = () => {
+    return completedCount > 0 ? (
+      <button className={style.clearCompleted} onClick={onClearCompleted} >
+        Clear completed
+      </button>
+    ) : (<noscript />)
   }
 
-  render () {
-    return (
-      <footer className={style.normal}>
-        {this.renderTodoCount()}
-        <ul className={style.filters}>
-          {[SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED].map(filter =>
-            <li key={filter}>
-              {this.renderFilterLink(filter)}
-            </li>
-          )}
-        </ul>
-        {this.renderClearButton()}
-      </footer>
-    )
-  }
+  return (
+    <footer className={style.normal}>
+      {renderTodoCount()}
+      <ul className={style.filters}>
+        {[SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED].map(filter =>
+          <li key={filter}>
+            {renderFilterLink(filter)}
+          </li>
+        )}
+      </ul>
+      {renderClearButton()}
+    </footer>
+  )
 }
 
 Footer.propTypes = {

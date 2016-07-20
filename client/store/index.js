@@ -20,7 +20,7 @@ export default function configure (router, initialState) {
   if (module.hot) {
     module.hot.accept('../reducers', () => {
       const nextReducer = require('../reducers')
-      store.replaceReducer(nextReducer)
+      return store.replaceReducer(nextReducer)
     })
   }
 

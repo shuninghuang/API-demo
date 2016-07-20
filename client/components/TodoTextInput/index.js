@@ -1,54 +1,25 @@
 
-import { Component, PropTypes } from 'react'
+import { PropTypes } from 'react'
+import { compose, withState, withHandlers } from 'recompose'
 import classnames from 'classnames'
 import style from './style.css'
 
-class TodoTextInput extends Component {
-  constructor (props, context) {
-    super(props, context)
-    this.state = {
-      text: this.props.text || ''
-    }
-  }
+const TodoTextInput = (props) => {
+  const classes = classnames({
+    [style.edit]: props.editing,
+    [style.new]: props.newTodo
+  }, style.normal)
 
-  handleSubmit (e) {
-    const text = e.target.value.trim()
-    if (e.which === 13) {
-      this.props.onSave(text)
-      if (this.props.newTodo) {
-        this.setState({ text: '' })
-      }
-    }
-  }
-
-  handleChange (e) {
-    this.setState({ text: e.target.value })
-  }
-
-  handleBlur (e) {
-    const text = e.target.value.trim()
-    if (!this.props.newTodo) {
-      this.props.onSave(text)
-    }
-  }
-
-  render () {
-    const classes = classnames({
-      [style.edit]: this.props.editing,
-      [style.new]: this.props.newTodo
-    }, style.normal)
-
-    return (
-      <input className={classes}
-        type='text'
-        autoFocus='true'
-        placeholder={this.props.placeholder}
-        value={this.state.text}
-        onBlur={this.handleBlur.bind(this)}
-        onChange={this.handleChange.bind(this)}
-        onKeyDown={this.handleSubmit.bind(this)} />
-    )
-  }
+  return (
+    <input className={classes}
+      type='text'
+      autoFocus='true'
+      placeholder={props.placeholder}
+      value={props.text}
+      onBlur={props.handleBlur}
+      onChange={props.handleChange}
+      onKeyDown={props.handleSubmit} />
+  )
 }
 
 TodoTextInput.propTypes = {
@@ -57,6 +28,34 @@ TodoTextInput.propTypes = {
   placeholder: PropTypes.string,
   editing: PropTypes.bool,
   newTodo: PropTypes.bool
+
+  // text:
+  // setText:
+  // handleSubmit:
+  // handleChange:
+  // handleBlur:
 }
 
-export default TodoTextInput
+export default compose(
+  withState('text', 'setText', ''),
+  withHandlers({
+    handleSubmit: props => e => {
+      const text = e.target.value.trim()
+      if (e.which === 13) {
+        props.onSave(text)
+        if (props.newTodo) {
+          props.setText('')
+        }
+      }
+    },
+    handleChange: props => e => {
+      props.setText(e.target.value)
+    },
+    handleBlur: props => e => {
+      const text = e.target.value.trim()
+      if (!props.newTodo) {
+        props.onSave(text)
+      }
+    }
+  })
+)(TodoTextInput)

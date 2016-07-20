@@ -8,9 +8,25 @@
   },
   "extends": "standard",
   "plugins": [
+    "fp",
     "react"
   ],
   "rules": {
-  	"react/jsx-uses-vars": [2]
+    "no-param-reassign": 2,
+    "no-undef": 2,
+    "no-var": 2,
+    "fp/no-class": 2,
+    "fp/no-let": 2,
+    "fp/no-loops": 2,
+    "fp/no-mutating-assign": 2,
+    "fp/no-mutation": [2, {
+      "commonjs": true,
+      "exceptions": [
+        {"property": "propTypes"}
+      ]
+    }],
+    "fp/no-nil": 2,
+    "fp/no-this": 2,
+    "react/jsx-uses-vars": 2
   }
 }
