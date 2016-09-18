@@ -1,0 +1,22 @@
+{
+  "name": "api-demo",
+  "description": "How to build up visualizations base on Traintracks API",
+  "main": "index.js",
+  "authors": [
+    "ShuningHuang"
+  ],
+  "license": "UNLICENSED",
+  "homepage": "https://github.com/shuninghuang/API-demo",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "less": "~2.7.1"
+  }
+}
