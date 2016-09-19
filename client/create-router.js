@@ -1,13 +1,15 @@
-import Router5, { loggerPlugin } from 'router5'
-import listenersPlugin from 'router5-listeners'
-import historyPlugin from 'router5-history'
+import createRouter, { loggerPlugin } from 'router5'
+import browserPlugin from 'router5/plugins/browser';
+import listenersPlugin from 'router5/plugins/listeners';
 import routes from './routes'
 
-export default function createRouter (useListenersPlugin = false) {
-  const router = new Router5(routes)
-    .setOption('useHash', true)
+export default function initRouter (useListenersPlugin = false) {
+  const router = createRouter(routes)
     .setOption('defaultRoute', 'inbox')
     // Plugins
+    .usePlugin(browserPlugin({
+      useHash: true
+    }))
     .usePlugin(loggerPlugin())
     .usePlugin(historyPlugin())
 
@@ -17,5 +19,3 @@ export default function createRouter (useListenersPlugin = false) {
 
   return router
 }
-
-export default createRouter

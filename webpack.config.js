@@ -11,8 +11,7 @@ module.exports = {
       'react',
       'react-dom',
       'react-redux',
-      'react-router',
-      'react-router-redux',
+      'react-router5',
       'redux'
     ]
   },
@@ -47,7 +46,14 @@ module.exports = {
           'react-hot',
           'babel-loader'
         ]
-      }
+      },
+      {
+        test: require.resolve('vega'),
+        loaders: [
+          'transform?vega/scripts/strip-schema.js',
+          'transform?browserify-versionify'
+        ]
+      },
     ]
   },
   resolve: {
